@@ -12,10 +12,10 @@ function init() {
 }
 init();
 
-//取得產品列表
-//https://hexschoollivejs.herokuapp.com/api/livejs/v1/customer/jiang/products
+//取得產品列表  6/21修改API
+//https://livejs-api.hexschool.io/api/livejs/v1/customer/jiang/products
 function getProductList() {
-  axios.get(`https://hexschoollivejs.herokuapp.com/api/livejs/v1/customer/${api_path}/products`)
+  axios.get(`https://livejs-api.hexschool.io/api/livejs/v1/customer/${api_path}/products`)
     .then(function (response) {
       productData = response.data.products;//取得產品
       renderProductList();
@@ -88,7 +88,7 @@ productList.addEventListener("click", function (e) {
   })
 
   //新增邏輯 post，要看文件後端指定的格式
-  axios.post(`https://hexschoollivejs.herokuapp.com/api/livejs/v1/customer/${api_path}/carts`, {
+  axios.post(`https://livejs-api.hexschool.io/api/livejs/v1/customer/${api_path}/carts`, {
     "data": {
       "productId": productId,
       "quantity": numCheck
@@ -101,7 +101,7 @@ productList.addEventListener("click", function (e) {
 
 //取得購物車列表
 function getCartList() {
-  axios.get(`https://hexschoollivejs.herokuapp.com/api/livejs/v1/customer/${api_path}/carts`)
+  axios.get(`https://livejs-api.hexschool.io/api/livejs/v1/customer/${api_path}/carts`)
     .then(function (response) {
       document.querySelector(".js-total").textContent = toThousands(response.data.finalTotal);;//抓到總金額渲染，點千分位
       cartData = response.data.carts;
@@ -139,7 +139,7 @@ cartList.addEventListener('click', function (e) {
     return;
   }
   console.log(cartId);
-  axios.delete(`https://hexschoollivejs.herokuapp.com/api/livejs/v1/customer/${api_path}/carts/${cartId}`)
+  axios.delete(`https://livejs-api.hexschool.io/api/livejs/v1/customer/${api_path}/carts/${cartId}`)
     .then(function (reponse) {
       alert("刪除單筆購物車成功");
       getCartList();//重新取資料重新render渲染
@@ -150,7 +150,7 @@ cartList.addEventListener('click', function (e) {
 const discardAllBtn = document.querySelector(".discardAllBtn");//discardAllBtn只有在這裡出現，寫在一起就可以了
 discardAllBtn.addEventListener("click", function (e) {
   e.preventDefault();//取消默認行為
-  axios.delete(`https://hexschoollivejs.herokuapp.com/api/livejs/v1/customer/${api_path}/carts`)
+  axios.delete(`https://livejs-api.hexschool.io/api/livejs/v1/customer/${api_path}/carts`)
     .then(function (response) {
       alert("刪除全部購物車成功！");
       getCartList();//重新取資料重新render渲染
@@ -182,7 +182,7 @@ orderInfoBtn.addEventListener("click", function (e) {
     alert("請填寫正確的Email");
     return;
   }
-  axios.post(`https://hexschoollivejs.herokuapp.com/api/livejs/v1/customer/${api_path}/orders`, {
+  axios.post(`https://livejs-api.hexschool.io/api/livejs/v1/customer/${api_path}/orders`, {
     "data": {
       "user": {
         "name": customerName,
